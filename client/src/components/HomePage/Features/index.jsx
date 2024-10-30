@@ -58,7 +58,7 @@ function Features() {
 
         <p className="text-xl text-[#667085] sm:text-2xl sm:px-12 lg:px-72">
           Powerful, self-serve product and growth analytics to help you convert,
-          engage, and retain more users. Trusted by over 4,000 startups.
+          engage, and retain more users.
         </p>
       </div>
 

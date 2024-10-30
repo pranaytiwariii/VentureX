@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* <Navbar /> */}
       <Hero />
       <Features />
-      <Analytics />
+      {/* <Analytics /> */}
       <Footer />
     </>
   );

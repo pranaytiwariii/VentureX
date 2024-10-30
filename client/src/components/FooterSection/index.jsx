@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="text-xs md:text-[16px] font-medium text-gray-700">
-      <div className="top">
+      {/* <div className="top">
         <div className="lists grid grid-cols-3 md:grid-cols-6 md:m-8 justify-items-center gap-4">
           <div className="links flex flex-col gap-1 md:gap-3">
             <div className="title font-semibold text-gray-400 mb-4">
@@ -74,15 +74,15 @@ function Footer() {
             <a href="#">Contact</a>
           </div>
         </div>
-      </div>
+      </div> */}
       <hr className="w-[90%] m-auto" />
       <div className="bottom mt-6 mb-6 md:mb-8 flex gap-2 justify-between mx-2 md:mx-8 items-center">
         <div className="footer-logo text-black md:text-md md:font-semibold flex gap-1 items-center">
-          <img width={25} src="/FooterSection/logomark.svg" alt="" />
-          <h2>Untitled UI</h2>
+          <img width={25} src="/HeroSection/layers.svg" alt="" />
+          <h2>VentureX</h2>
         </div>
         <div className="footer-text text-gray-500">
-          © 2077 Untitled UI. All rights reserved.
+        Decentralized Platform for Inclusive and Versatile Startup Funding.
         </div>
       </div>
     </footer>
