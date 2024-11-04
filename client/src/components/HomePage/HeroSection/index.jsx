@@ -10,7 +10,7 @@ function Hero() {
   ];
 
   return (
-    <section className="flex mx-2 md:mx-4 flex-col items-center gap-12 pt-28">
+    <section className="flex mx-2 md:mx-4 flex-col items-center gap-12 pt-10">
       <div className="top-container">
         <Link to="/dashboard">
           <div className="badge-section text-xs m-auto text-[#6941C6] flex gap-3 pt-1 pr-1 pb-1 pl-1 rounded-2xl w-max items-center justify-center bg-gray-100">
