@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
+import Chatbot from './chatbot/InvestorChatbot'
 
 export default function InvestorDashboard() {
   const [activeTab, setActiveTab] = useState("portfolio")
@@ -294,54 +295,9 @@ export default function InvestorDashboard() {
           </TabsContent>
         </Tabs>
 
-        {/* Chat Section */}
-         <Button
-          variant="outline"
-          size="icon"
-          className="fixed bottom-4 right-4 rounded-full w-12 h-12 bg-primary text-primary-foreground shadow-lg"
-          onClick={toggleChatbot}
-        >
-          <MessageCircle className="h-6 w-6" />
-          <span className="sr-only">Open chat</span>
-        </Button>
-
-        {/* Chatbot UI */}
-        {chatbotOpen && (
-          <div
-            ref={chatbotRef}
-            className="fixed bottom-20 bg-white right-4 w-80 h-96 bg-background border rounded-lg shadow-xl flex flex-col"
-          >
-            <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="font-semibold">InvestDAO Assistant</h3>
-              <Button variant="ghost" size="sm" onClick={() => setChatbotOpen(false)}>
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            <ScrollArea className="flex-grow p-4">
-              <div className="space-y-4">
-                <div className="bg-muted p-2 rounded-lg">
-                  <p className="text-sm">Hello! How can I assist you with your investments today?</p>
-                </div>
-                <div className="bg-primary text-primary-foreground p-2 rounded-lg ml-auto max-w-[80%]">
-                  <p className="text-sm">I have a question about my portfolio.</p>
-                </div>
-                <div className="bg-muted p-2 rounded-lg">
-                  <p className="text-sm">What would you like to know about your portfolio?</p>
-                </div>
-              </div>
-            </ScrollArea>
-            <div className="p-4 border-t">
-              <form className="flex items-center">
-                <Input type="text" placeholder="Type your message..." className="flex-grow" />
-                <Button type="submit" size="sm" className="ml-2">
-                  <Send className="h-4 w-4" />
-                  <span className="sr-only">Send message</span>
-                </Button>
-              </form>
-            </div>
-          </div>
-        )}
+        {/* Chatbot Component */}
+        <Chatbot />
       </main>
     </div>
-  )
+  );
 }
