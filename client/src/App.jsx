@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar";
 import HomePage from "./Pages/HomePage";
 import Dashboard from './Pages/Dashboard';
 import InvestorDashboard from "./components/dashboard/InvestorDashboard";
-import ExploreProject from "./Pages/ExploreProject";
 import ProjectDetails from "./Pages/ProjectDetails"; // Import ProjectDetails
 import ProjectList from "./Pages/ProjectList"; // Import ProjectList
 
