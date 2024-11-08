@@ -23,12 +23,14 @@ function Hero() {
             </div>
           </div>
         </Link>
+        <Link to="/explore">
         <div className="flex gap-2 justify-center mt-4 h-12">
           <img src="/HeroSection/layers.svg" alt="" />
           <h1 className="text-3xl md:text-5xl font-bold text-center">
             VentureX
           </h1>
         </div>
+        </Link>
         <div className="heading-section mt-3 flex flex-col gap-0 sm:gap-4 items-center">
           <p className="text-gray-500 text-2xl md:text-4xl font-semibold text-center flex-wrap">
             Revolutionize Startup Funding
