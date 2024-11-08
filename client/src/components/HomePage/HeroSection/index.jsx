@@ -44,7 +44,7 @@ function Hero() {
               src="HeroSection/play-circle.svg"
               alt="play-circle"
             />
-            Demo
+            Explore Bussinesses 
           </button>
           <Link to="/investordashboard">
             <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
