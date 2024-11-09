@@ -24,12 +24,12 @@ function Hero() {
           </div>
         </Link>
         <Link to="/explore">
-        <div className="flex gap-2 justify-center mt-4 h-12">
-          <img src="/HeroSection/layers.svg" alt="" />
-          <h1 className="text-3xl md:text-5xl font-bold text-center">
-            VentureX
-          </h1>
-        </div>
+          <div className="flex gap-2 justify-center mt-4 h-12">
+            <img src="/HeroSection/layers.svg" alt="" />
+            <h1 className="text-3xl md:text-5xl font-bold text-center">
+              VentureX
+            </h1>
+          </div>
         </Link>
         <div className="heading-section mt-3 flex flex-col gap-0 sm:gap-4 items-center">
           <p className="text-gray-500 text-2xl md:text-4xl font-semibold text-center flex-wrap">
@@ -40,23 +40,25 @@ function Hero() {
           </h1>
         </div>
         <div className="btn-section flex justify-center gap-6 mt-8">
-          <button className="flex px-1 md:px-2 items-center gap-2 border rounded-md">
-            <img
-              width={20}
-              src="HeroSection/play-circle.svg"
-              alt="play-circle"
-            />
-            Explore Bussinesses 
-          </button>
+          <Link to="/explore">
+            <button className="flex px-1 md:px-2 items-center gap-2 border rounded-md">
+              <img
+                width={20}
+                src="HeroSection/play-circle.svg"
+                alt="play-circle"
+              />
+              Explore Bussinesses
+            </button>
+          </Link>
           <Link to="/investordashboard">
             <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
               Investors Dashboard
             </button>
           </Link>
-         <Link to='/dashboard'>
-         <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
-            Founders Dashboard
-          </button>
+          <Link to="/dashboard">
+            <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
+              Founders Dashboard
+            </button>
           </Link>
         </div>
       </div>
