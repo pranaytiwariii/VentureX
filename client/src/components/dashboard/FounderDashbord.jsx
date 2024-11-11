@@ -315,7 +315,7 @@ export default function FounderDashboard() {
                     <BarChart data={data.fundingData}>
                       <XAxis dataKey="region" />
                       <YAxis />
-                      <Bar dataKey="investors" fill="var(--color-investors)" />
+                      <Bar dataKey="investors" fill="#6941C6" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

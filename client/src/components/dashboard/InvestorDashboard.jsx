@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Bell, ChevronDown, CreditCard, DollarSign, Home, MenuIcon,MessageCircle, PieChart, Settings, Users, Vote, X, Send } from 'lucide-react'
+import { Bell, ChevronDown, CreditCard, DollarSign, Home, MenuIcon,MessageCircle, PieChart, Settings, Users, Vote, X, Send, Plus } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import Chatbot from './chatbot/InvestorChatbot'
+import { Link } from 'react-router-dom'
 
 export default function InvestorDashboard() {
   const [activeTab, setActiveTab] = useState("portfolio")
@@ -80,6 +81,12 @@ export default function InvestorDashboard() {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-bold">Investor Dashboard</h2>
           <div className="flex items-center space-x-4">
+            <Link to="/explore">
+            <Button variant="outline" size="auto">
+              <p className='p-2'>Add investment</p>
+              <Plus className="" />
+            </Button>
+            </Link>
             <Button variant="outline" size="icon">
               <Bell className="h-4 w-4" />
             </Button>

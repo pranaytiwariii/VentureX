@@ -12,7 +12,7 @@ const InvestorChatbot = () => {
   const [loading, setLoading] = useState(false);
   const chatbotRef = useRef(null);
 
-  const VULTR_API_KEY = "CXFDY7PLZHZHBFQQAJZHEULKUHSG2Z35WRAA"; // Replace with your actual API key
+  const VULTR_API_KEY = ""; // Replace with your actual API key
 
   const toggleChatbot = () => setChatbotOpen(!chatbotOpen);
 
@@ -40,7 +40,7 @@ const InvestorChatbot = () => {
 
     try {
       const response = await axios.post(
-        "https://api.vultrinference.com/v1/chat/completions",
+        "https://api.vultrinference.com/v1/chat/RAG",
         {
           model: "llama2-7b-chat-Q5_K_M", // Specify your model here
           messages: [
@@ -90,7 +90,7 @@ const InvestorChatbot = () => {
       {chatbotOpen && (
         <div
           ref={chatbotRef}
-          className="fixed bottom-20 right-4 w-80 h-96 bg-white border rounded-lg shadow-xl flex flex-col"
+          className="fixed bottom-20 right-4 w-80 h-96 sm:w-[500px] sm:h-[500px] bg-white border rounded-lg shadow-xl flex flex-col"
         >
           <div className="flex justify-between items-center p-4 border-b">
             <h3 className="font-semibold">InvestDAO Assistant</h3>

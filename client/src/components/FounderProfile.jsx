@@ -1,9 +1,11 @@
-import React from "react";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Building2, CheckCircle2, PlusCircle, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+'use client'
+
+import * as React from "react"
+import { useForm, useFieldArray } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Building2, CheckCircle2, PlusCircle, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -11,76 +13,60 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Link } from "react-router-dom";
+} from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Link } from "react-router-dom"
 
 const formSchema = z.object({
-  fullName: z
-    .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+  fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().min(10, { message: "Please enter a valid phone number." }),
   companyName: z.string().min(2, { message: "Company name is required." }),
-  registrationNumber: z
-    .string()
-    .min(1, { message: "Registration number is required." }),
+  registrationNumber: z.string().min(1, { message: "Registration number is required." }),
   industry: z.string().min(1, { message: "Please select an industry." }),
-  description: z
-    .string()
-    .min(50, { message: "Description must be at least 50 characters." }),
+  description: z.string().min(50, { message: "Description must be at least 50 characters." }),
   fundingAmount: z.string().min(1, { message: "Funding amount is required." }),
-  paymentMethod: z
-    .string()
-    .min(1, { message: "Please select payment method." }),
-  blockchain: z
-    .string()
-    .min(1, { message: "Please select blockchain network." }),
-  previousCompanies: z.array(
-    z.object({
-      name: z.string().min(1, { message: "Company name is required." }),
-      role: z.string().min(1, { message: "Your role is required." }),
-      duration: z.string().min(1, { message: "Duration is required." }),
-    })
-  ),
-  totalFundsRaised: z
-    .string()
-    .min(1, { message: "Total funds raised is required." }),
-  investors: z.array(
-    z.object({
-      name: z.string().min(1, { message: "Investor name is required." }),
-      amount: z.string().min(1, { message: "Investment amount is required." }),
-    })
-  ),
+  paymentMethod: z.string().min(1, { message: "Please select payment method." }),
+  blockchain: z.string().min(1, { message: "Please select blockchain network." }),
+  previousCompanies: z.array(z.object({
+    name: z.string().min(1, { message: "Company name is required." }),
+    role: z.string().min(1, { message: "Your role is required." }),
+    duration: z.string().min(1, { message: "Duration is required." }),
+  })),
+  totalFundsRaised: z.string().min(1, { message: "Total funds raised is required." }),
+  investors: z.array(z.object({
+    name: z.string().min(1, { message: "Investor name is required." }),
+    amount: z.string().min(1, { message: "Investment amount is required." }),
+  })),
 });
 
 export default function FounderProfile() {
-  const [step, setStep] = React.useState(1);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [step, setStep] = React.useState(1)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [activityLog, setActivityLog] = React.useState([
-    { date: "2024-02-20", action: "Profile created" },
-    { date: "2024-02-19", action: "KYC documents uploaded" },
-    { date: "2024-02-18", action: "Company details updated" },
-  ]);
+    { date: '2024-02-20', action: 'Profile created' },
+    { date: '2024-02-19', action: 'KYC documents uploaded' },
+    { date: '2024-02-18', action: 'Company details updated' },
+  ])
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -99,38 +85,27 @@ export default function FounderProfile() {
       totalFundsRaised: "",
       investors: [{ name: "", amount: "" }],
     },
-  });
+  })
 
-  const {
-    fields: previousCompaniesFields,
-    append: appendPreviousCompany,
-    remove: removePreviousCompany,
-  } = useFieldArray({
+  const { fields: previousCompaniesFields, append: appendPreviousCompany, remove: removePreviousCompany } = useFieldArray({
     control: form.control,
     name: "previousCompanies",
-  });
+  })
 
-  const {
-    fields: investorsFields,
-    append: appendInvestor,
-    remove: removeInvestor,
-  } = useFieldArray({
+  const { fields: investorsFields, append: appendInvestor, remove: removeInvestor } = useFieldArray({
     control: form.control,
     name: "investors",
-  });
+  })
 
   async function onSubmit(values) {
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(values);
-    setIsSubmitting(false);
-    setActivityLog((prev) => [
-      {
-        date: new Date().toISOString().split("T")[0],
-        action: "Profile submitted for review",
-      },
-      ...prev,
-    ]);
+    setIsSubmitting(true)
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    console.log(values)
+    setIsSubmitting(false)
+    setActivityLog(prev => [{
+      date: new Date().toISOString().split('T')[0],
+      action: 'Profile submitted for review'
+    }, ...prev])
   }
 
   return (
@@ -150,10 +125,7 @@ export default function FounderProfile() {
             </TabsList>
             <TabsContent value="profile">
               <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8"
-                >
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                   {step === 1 && (
                     <div className="space-y-4">
                       <Alert>
@@ -163,7 +135,7 @@ export default function FounderProfile() {
                           Let&apos;s start with your personal information
                         </AlertDescription>
                       </Alert>
-
+                      
                       <FormField
                         control={form.control}
                         name="fullName"
@@ -177,7 +149,7 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="email"
@@ -185,16 +157,13 @@ export default function FounderProfile() {
                           <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                              <Input
-                                placeholder="john@example.com"
-                                {...field}
-                              />
+                              <Input placeholder="john@example.com" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="phone"
@@ -220,7 +189,7 @@ export default function FounderProfile() {
                           Tell us about your company
                         </AlertDescription>
                       </Alert>
-
+                      
                       <FormField
                         control={form.control}
                         name="companyName"
@@ -234,7 +203,7 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="registrationNumber"
@@ -248,31 +217,24 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="industry"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Industry</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Select industry" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
+                              <SelectContent className="bg-white">
                                 <SelectItem value="tech">Technology</SelectItem>
                                 <SelectItem value="finance">Finance</SelectItem>
-                                <SelectItem value="healthcare">
-                                  Healthcare
-                                </SelectItem>
-                                <SelectItem value="education">
-                                  Education
-                                </SelectItem>
+                                <SelectItem value="healthcare">Healthcare</SelectItem>
+                                <SelectItem value="education">Education</SelectItem>
                                 <SelectItem value="other">Other</SelectItem>
                               </SelectContent>
                             </Select>
@@ -280,7 +242,7 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="description"
@@ -310,7 +272,7 @@ export default function FounderProfile() {
                           Set up your funding requirements
                         </AlertDescription>
                       </Alert>
-
+                      
                       <FormField
                         control={form.control}
                         name="fundingAmount"
@@ -324,29 +286,22 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="paymentMethod"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Preferred Payment Method</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Select payment method" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
-                                <SelectItem value="crypto">
-                                  Cryptocurrency
-                                </SelectItem>
-                                <SelectItem value="fiat">
-                                  Fiat Currency
-                                </SelectItem>
+                              <SelectContent className="bg-white">
+                                <SelectItem value="crypto">Cryptocurrency</SelectItem>
+                                <SelectItem value="fiat">Fiat Currency</SelectItem>
                                 <SelectItem value="nft">NFTs</SelectItem>
                               </SelectContent>
                             </Select>
@@ -354,26 +309,21 @@ export default function FounderProfile() {
                           </FormItem>
                         )}
                       />
-
+                      
                       <FormField
                         control={form.control}
                         name="blockchain"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Target Blockchain</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Select blockchain" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
-                                <SelectItem value="ethereum">
-                                  Ethereum
-                                </SelectItem>
+                              <SelectContent className="bg-white">
+                                <SelectItem value="ethereum">Ethereum</SelectItem>
                                 <SelectItem value="bsc">BSC</SelectItem>
                                 <SelectItem value="polygon">Polygon</SelectItem>
                               </SelectContent>
@@ -389,7 +339,7 @@ export default function FounderProfile() {
                           <Label htmlFor="kyc">Upload Documents</Label>
                           <Input id="kyc" type="file" />
                         </div>
-
+                        
                         <Label>Pitch Deck</Label>
                         <div className="grid w-full max-w-sm items-center gap-1.5">
                           <Label htmlFor="pitch">Upload Pitch Deck</Label>
@@ -405,28 +355,21 @@ export default function FounderProfile() {
                         <Building2 className="h-4 w-4" />
                         <AlertTitle>Step 4 of 4</AlertTitle>
                         <AlertDescription>
-                          Tell us about your previous business history and
-                          investors
+                          Tell us about your previous business history and investors
                         </AlertDescription>
                       </Alert>
 
                       <div>
                         <Label>Previous Companies</Label>
                         {previousCompaniesFields.map((field, index) => (
-                          <div
-                            key={field.id}
-                            className="flex items-end space-x-2 mt-2"
-                          >
+                          <div key={field.id} className="flex items-end space-x-2 mt-2">
                             <FormField
                               control={form.control}
                               name={`previousCompanies.${index}.name`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
-                                    <Input
-                                      placeholder="Company Name"
-                                      {...field}
-                                    />
+                                    <Input placeholder="Company Name" {...field} />
                                   </FormControl>
                                 </FormItem>
                               )}
@@ -453,29 +396,12 @@ export default function FounderProfile() {
                                 </FormItem>
                               )}
                             />
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
-                              onClick={() => removePreviousCompany(index)}
-                            >
+                            <Button type="button" variant="outline" size="icon" onClick={() => removePreviousCompany(index)}>
                               <X className="h-4 w-4" />
                             </Button>
                           </div>
                         ))}
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="mt-2"
-                          onClick={() =>
-                            appendPreviousCompany({
-                              name: "",
-                              role: "",
-                              duration: "",
-                            })
-                          }
-                        >
+                        <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => appendPreviousCompany({ name: "", role: "", duration: "" })}>
                           <PlusCircle className="h-4 w-4 mr-2" />
                           Add Previous Company
                         </Button>
@@ -486,9 +412,7 @@ export default function FounderProfile() {
                         name="totalFundsRaised"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>
-                              Total Funds Raised (in previous ventures)
-                            </FormLabel>
+                            <FormLabel>Total Funds Raised (in previous ventures)</FormLabel>
                             <FormControl>
                               <Input placeholder="1000000" {...field} />
                             </FormControl>
@@ -500,20 +424,14 @@ export default function FounderProfile() {
                       <div>
                         <Label>Previous Investors</Label>
                         {investorsFields.map((field, index) => (
-                          <div
-                            key={field.id}
-                            className="flex items-end space-x-2 mt-2"
-                          >
+                          <div key={field.id} className="flex items-end space-x-2 mt-2">
                             <FormField
                               control={form.control}
                               name={`investors.${index}.name`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
-                                    <Input
-                                      placeholder="Investor Name"
-                                      {...field}
-                                    />
+                                    <Input placeholder="Investor Name" {...field} />
                                   </FormControl>
                                 </FormItem>
                               )}
@@ -524,33 +442,17 @@ export default function FounderProfile() {
                               render={({ field }) => (
                                 <FormItem>
                                   <FormControl>
-                                    <Input
-                                      placeholder="Investment Amount"
-                                      {...field}
-                                    />
+                                    <Input placeholder="Investment Amount" {...field} />
                                   </FormControl>
                                 </FormItem>
                               )}
                             />
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
-                              onClick={() => removeInvestor(index)}
-                            >
+                            <Button type="button" variant="outline" size="icon" onClick={() => removeInvestor(index)}>
                               <X className="h-4 w-4" />
                             </Button>
                           </div>
                         ))}
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="mt-2"
-                          onClick={() =>
-                            appendInvestor({ name: "", amount: "" })
-                          }
-                        >
+                        <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => appendInvestor({ name: "", amount: "" })}>
                           <PlusCircle className="h-4 w-4 mr-2" />
                           Add Investor
                         </Button>
@@ -560,11 +462,7 @@ export default function FounderProfile() {
 
                   <div className="flex justify-between">
                     {step > 1 && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setStep(step - 1)}
-                      >
+                      <Button type="button" variant="outline" onClick={() => setStep(step - 1)}>
                         Previous
                       </Button>
                     )}
@@ -573,11 +471,9 @@ export default function FounderProfile() {
                         Next
                       </Button>
                     ) : (
-                      <Link to="/dashboard">
+                      <Link to="/founderdashboard">
                         <Button type="submit" disabled={isSubmitting}>
-                          {isSubmitting
-                            ? "Submitting..."
-                            : "Submit for Approval"}
+                          {isSubmitting ? "Submitting..." : "Submit for Approval"}
                         </Button>
                       </Link>
                     )}
@@ -603,5 +499,5 @@ export default function FounderProfile() {
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
