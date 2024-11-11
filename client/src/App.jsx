@@ -7,6 +7,7 @@ import Dashboard from './Pages/Dashboard';
 import InvestorDashboard from "./components/dashboard/InvestorDashboard";
 import ProjectDetails from "./Pages/ProjectDetails"; // Import ProjectDetails
 import ProjectList from "./Pages/ProjectList"; // Import ProjectList
+import FounderProfile from "./components/FounderProfile";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         {/* Define your routes here */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<FounderProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/investordashboard" element={<InvestorDashboard />} />
         <Route path="/explore" element={<ProjectList />} /> {/* Project list */}
