@@ -41,7 +41,7 @@ function Hero() {
         </div>
         <div className="btn-section flex justify-center gap-6 mt-8">
           <Link to="/explore">
-            <button className="flex px-1 md:px-2 items-center gap-2 border rounded-md">
+            <button className="flex px-1 md:px-2 items-center gap-2 py-2 border rounded-md">
               <img
                 width={20}
                 src="HeroSection/play-circle.svg"
