@@ -6,11 +6,12 @@ import InvestorDashboard from "./components/dashboard/InvestorDashboard";
 import ProjectDetails from "./Pages/ProjectDetails"; // Import ProjectDetails
 import ProjectList from "./Pages/ProjectList"; // Import ProjectList
 import FounderProfile from "./components/FounderProfile";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         {/* Define your routes here */}
         <Route path="/" element={<HomePage />} />

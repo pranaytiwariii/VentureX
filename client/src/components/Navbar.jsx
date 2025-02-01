@@ -1,70 +1,104 @@
-"use client";
-import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
-import { cn } from "../lib/utils";
+import { useState, useEffect } from "react";
+import { Menu, User } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "/HeroSection/layers.svg";
 
-export function NavbarDemo() {
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.7;
+      setIsScrolled(window.scrollY > (isHomePage ? heroHeight - 80 : 0));
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
+
   return (
-    (<div className="relative w-full flex items-center justify-center">
-      <Navbar className="top-2" />
-      <p className="text-black dark:text-white">
-        The Navbar will show on top of the page
-      </p>
-    </div>)
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled || !isHomePage ? "bg-white" : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={logo} alt="" />
+              <span
+                className={`text-xl font-bold transition-colors duration-300 ${
+                  isScrolled || !isHomePage ? "text-gray-900" : "text-black"
+                }`}
+              >
+                VentureX
+              </span>
+            </Link>
+
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/host"
+                  className={`hidden md:flex items-center px-4 py-2 rounded-full transition-all duration-300 ${
+                    isScrolled || !isHomePage
+                      ? "border border-gray-300 hover:shadow-md"
+                      : "text-black hover:bg-white/10"
+                  }`}
+                >
+                  <span className="text-sm font-medium">Browse Start up</span>
+                </Link>
+              </div>
+
+              <button
+                className={`hidden md:flex items-center px-4 py-2 rounded-full transition-all duration-300 ${
+                  isScrolled || !isHomePage
+                    ? "border border-gray-300 hover:shadow-md"
+                    : "text-black hover:bg-white/10"
+                }`}
+              >
+                <span className="text-sm font-medium">Sign In</span>
+              </button>
+
+              <div className="relative">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className={`flex items-center space-x-2 p-2 rounded-full cursor-pointer transition-all duration-300 ${
+                    isScrolled || !isHomePage
+                      ? "border border-gray-300 hover:shadow-md"
+                      : "text-black hover:bg-white/10"
+                  }`}
+                >
+                  <Menu className="w-5 h-5" />
+                  <User className="w-5 h-5" />
+                </button>
+
+                {isMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="flex items-center space-x-4">
+                      <Link
+                        to="/host"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <span className="text-sm font-medium">
+                          Browse Start Ups
+                        </span>
+                      </Link>
+                    </div>
+                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      Sign In
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
-
-function Navbar({
-  className
-}) {
-  const [active, setActive] = useState(null);
-  return (
-    (<div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}>
-      <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Services">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/web-dev">Web Development</HoveredLink>
-            <HoveredLink href="/interface-design">Interface Design</HoveredLink>
-            <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
-            <HoveredLink href="/branding">Branding</HoveredLink>
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Products">
-          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Algochurn"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Prepare for tech interviews like never before." />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project" />
-            <ProductItem
-              title="Moonbeam"
-              href="https://gomoonbeam.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Never write from scratch again. Go from idea to blog in minutes." />
-            <ProductItem
-              title="Rogue"
-              href="https://userogue.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI" />
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Pricing">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">Hobby</HoveredLink>
-            <HoveredLink href="/individual">Individual</HoveredLink>
-            <HoveredLink href="/team">Team</HoveredLink>
-            <HoveredLink href="/enterprise">Enterprise</HoveredLink>
-          </div>
-        </MenuItem>
-      </Menu>
-    </div>)
-  );
-}
-
-export default Navbar
