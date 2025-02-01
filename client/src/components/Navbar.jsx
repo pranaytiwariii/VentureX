@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "/HeroSection/layers.svg";
+import AuthModal from "../components/HomePage/AuthModel";
+import logo from "../../public/HeroSection/layers.svg";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -55,6 +57,7 @@ export default function Navbar() {
               </div>
 
               <button
+                onClick={() => setIsAuthModalOpen(true)}
                 className={`hidden md:flex items-center px-4 py-2 rounded-full transition-all duration-300 ${
                   isScrolled || !isHomePage
                     ? "border border-gray-300 hover:shadow-md"
@@ -89,7 +92,10 @@ export default function Navbar() {
                         </span>
                       </Link>
                     </div>
-                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <button
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
                       Sign In
                     </button>
                   </div>
@@ -99,6 +105,11 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
     </>
   );
 }
