@@ -52,10 +52,10 @@ function Hero() {
           </Link>
           <Link to="/investordashboard">
             <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
-              LogIn as Investor 
+              LogIn as Investor
             </button>
           </Link>
-          <Link to="/dashboard">
+          <Link to="/founderdashboard">
             <button className="px-2 md:px-3 rounded-md bg-[#7F56D9] p-2 text-gray-50">
               LogIn as a Founder
             </button>

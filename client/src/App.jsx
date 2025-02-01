@@ -15,7 +15,7 @@ function App() {
         {/* Define your routes here */}
         <Route path="/" element={<HomePage />} />
         <Route path="/form" element={<FounderProfile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/founderdashboard" element={<Dashboard />} />
         <Route path="/investordashboard" element={<InvestorDashboard />} />
         <Route path="/explore" element={<ProjectList />} /> {/* Project list */}
         <Route path="/project/:id" element={<ProjectDetails />} />{" "}
